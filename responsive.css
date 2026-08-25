@@ -1,0 +1,18 @@
+@media (max-width: 900px) {
+  .nav { position: relative; }
+  .mobile-menu-btn { display: inline-flex; align-items: center; }
+  .navlinks { display: none; position: absolute; left: 0; right: 0; top: 66px; padding: 14px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); z-index: 25; flex-direction: column; gap: 8px; }
+  .navlinks.open { display: flex; }
+  .nav-actions { margin-left: auto; }
+  .theme-btn { display: none; }
+}
+@media (max-width: 680px) {
+  nav { height: auto; min-height: 76px; gap: 8px; }
+  .logo { margin-right: auto; }
+  .account-btn > span:last-child, .navbtn { display: none; }
+  .account-panel { right: -4px; }
+  .hero { padding-bottom: 45px; }
+  .scan-card { width: min(270px, calc(100% - 30px)); }
+  .feature, .impact { border-radius: 24px; }
+  .cta h2 { font-size: 38px; }
+}

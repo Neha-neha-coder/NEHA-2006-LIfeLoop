@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeLoop — Give Everything a Longer Life</title>
+  <meta name="description"
+    content="LifeLoop helps you repair, reuse, resell, donate or recycle the things you already own.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #16352d;
+      --muted: #64756e;
+      --green: #2f7d5b;
+      --green2: #5aa477;
+      --mint: #eaf6ef;
+      --cream: #fbfaf5;
+      --white: #fff;
+      --line: #dfe9e2;
+      --shadow: 0 18px 55px rgba(28, 72, 54, .10);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.55
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: Manrope, sans-serif;
+      line-height: 1.08
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    button,
+    input {
+      font: inherit
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: auto
+    }
+
+    nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Manrope;
+      font-weight: 800;
+      font-size: 22px
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: var(--green);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      box-shadow: 0 8px 20px rgba(47, 125, 91, .2)
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 30px;
+      color: #53645e;
+      font-size: 14px;
+      font-weight: 600
+    }
+
+    .navlinks a:hover {
+      color: var(--green)
+    }
+
+    .navbtn {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 11px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer
+    }
+
+    .hero {
+      padding: 56px 0 70px;
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 64px;
+      align-items: center
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      background: var(--mint);
+      border: 1px solid #d6ecdd;
+      border-radius: 999px;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 20px
+    }
+
+    .eyebrow span {
+      width: 7px;
+      height: 7px;
+      background: #56a574;
+      border-radius: 50%
+    }
+
+    .hero h1 {
+      font-size: clamp(46px, 6vw, 76px);
+      letter-spacing: -3px;
+      max-width: 680px
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--green)
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 22px 0 28px
+    }
+
+    .ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .primary {
+      background: var(--green);
+      color: #fff;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(47, 125, 91, .22)
+    }
+
+    .primary:hover {
+      transform: translateY(-1px)
+    }
+
+    .secondary {
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-weight: 800;
+      cursor: pointer
+    }
+
+    .hero-card {
+      position: relative
+    }
+
+    .hero-img {
+      height: 500px;
+      border-radius: 34px;
+      overflow: hidden;
+      background: url("https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=85") center/cover;
+      box-shadow: var(--shadow)
+    }
+
+    .hero-img:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14, 45, 34, .02), rgba(14, 45, 34, .22))
+    }
+
+    .scan-card {
+      position: absolute;
+      left: -34px;
+      bottom: 28px;
+      width: 270px;
+      background: rgba(255, 255, 255, .94);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow)
+    }
+
+    .scan-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 13px
+    }
+
+    .scan-title {
+      font-weight: 800
+    }
+
+    .badge {
+      background: #e9f7ed;
+      color: var(--green);
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800
+    }
+
+    .scan-item {
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .mini-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 13px;
+      background: url("https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=200&q=80") center/cover
+    }
+
+    .scan-item strong {
+      display: block;
+      font-size: 14px
+    }
+
+    .scan-item small {
+      color: var(--muted)
+    }
+
+    .progress {
+      height: 7px;
+      background: #e8eee9;
+      border-radius: 99px;
+      margin-top: 12px;
+      overflow: hidden
+    }
+
+    .progress i {
+      display: block;
+      width: 82%;
+      height: 100%;
+      background: var(--green);
+      border-radius: 99px
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 80px
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px
+    }
+
+    .stat strong {
+      font: 800 28px Manrope;
+      display: block
+    }
+
+    .stat span {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .section {
+      padding: 82px 0
+    }
+
+    .section-head {
+      max-width: 700px;
+      margin-bottom: 38px
+    }
+
+    .kicker {
+      color: var(--green);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      margin-bottom: 10px
+    }
+
+    .section h2 {
+      font-size: 42px;
+      letter-spacing: -1.5px
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin-top: 13px
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px
+    }
+
+    .step {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      min-height: 230px
+    }
+
+    .num {
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 800
+    }
+
+    .step-icon {
+      font-size: 31px;
+      margin: 24px 0 18px
+    }
+
+    .step h3 {
+      font-size: 20px;
+      margin-bottom: 8px
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--muted)
+    }
+
+    .feature {
+      background: var(--mint);
+      border-radius: 34px;
+      padding: 54px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center
+    }
+
+    .feature-img {
+      height: 410px;
+      border-radius: 25px;
+      background: url("https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1000&q=85") center/cover
+    }
+
+    .feature h2 {
+      font-size: 44px;
+      letter-spacing: -1.6px
+    }
+
+    .feature p {
+      color: var(--muted);
+      margin: 18px 0
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      border: 1px solid #d9e9df;
+      padding: 12px 14px;
+      border-radius: 13px;
+      font-weight: 700;
+      font-size: 14px
+    }
+
+    .option b {
+      margin-left: auto;
+      color: var(--green);
+      font-size: 12px
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px
+    }
+
+    .cat {
+      height: 150px;
+      border-radius: 22px;
+      padding: 18px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center
+    }
+
+    .cat:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .58))
+    }
+
+    .cat>* {
+      position: relative;
+      z-index: 1
+    }
+
+    .cat strong {
+      font-family: Manrope
+    }
+
+    .cat span {
+      font-size: 11px;
+      opacity: .9
+    }
+
+    .cat:nth-child(1) {
+      background-image: url("https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80")
+    }
+
+    .cat:nth-child(2) {
+      background-image: url("https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=600&q=80")
+    }
+
+    .cat:nth-child(3) {
+      background-image: url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80")
+    }
+
+    .cat:nth-child(4) {
+      background-image: url("https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80")
+    }
+
+    .cat:nth-child(5) {
+      background-image: url("https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80")
+    }
+
+    .impact {
+      background: #16352d;
+      color: white;
+      border-radius: 34px;
+      padding: 54px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 45px;
+      align-items: center
+    }
+
+    .impact p {
+      color: #bfd0c7;
+      margin-top: 14px;
+      max-width: 560px
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .impact-box {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .12);
+      padding: 20px;
+      border-radius: 18px
+    }
+
+    .impact-box strong {
+      font: 800 27px Manrope;
+      display: block
+    }
+
+    .impact-box span {
+      font-size: 12px;
+      color: #b7c9c0
+    }
+
+    .cta {
+      padding: 90px 0;
+      text-align: center
+    }
+
+    .cta h2 {
+      font-size: 48px;
+      max-width: 720px;
+      margin: auto
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin: 16px auto 24px;
+      max-width: 580px
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 28, 21, .5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 20
+    }
+
+    .modal.open {
+      display: flex
+    }
+
+    .modal-box {
+      width: min(560px, 100%);
+      background: #fff;
+      border-radius: 26px;
+      padding: 28px;
+      box-shadow: var(--shadow)
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px
+    }
+
+    .close {
+      border: 0;
+      background: #eef4f0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer
+    }
+
+    .drop {
+      border: 2px dashed #b9d4c3;
+      border-radius: 20px;
+      padding: 38px;
+      text-align: center;
+      background: #f7fbf8;
+      cursor: pointer
+    }
+
+    .drop span {
+      font-size: 38px;
+      display: block;
+      margin-bottom: 10px
+    }
+
+    .drop p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      background: var(--mint);
+      padding: 18px;
+      border-radius: 17px
+    }
+
+    .result.show {
+      display: block
+    }
+
+    .result strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px
+    }
+
+    .result .pill {
+      display: inline-block;
+      background: white;
+      border-radius: 99px;
+      padding: 6px 9px;
+      font-size: 11px;
+      margin: 5px 4px 0 0;
+      font-weight: 700
+    }
+
+    @media(max-width:900px) {
+
+      .hero,
+      .feature,
+      .impact {
+        grid-template-columns: 1fr
+      }
+
+      .hero {
+        padding-top: 30px
+      }
+
+      .hero-img {
+        height: 390px
+      }
+
+      .scan-card {
+        left: 15px
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .categories {
+        grid-template-columns: 1fr 1fr 1fr
+      }
+
+      .navlinks {
+        display: none
+      }
+    }
+
+    @media(max-width:600px) {
+      .hero h1 {
+        font-size: 47px
+      }
+
+      .stats,
+      .steps {
+        grid-template-columns: 1fr
+      }
+
+      .section h2,
+      .feature h2 {
+        font-size: 34px
+      }
+
+      .feature,
+      .impact {
+        padding: 28px
+      }
+
+      .categories {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .cat {
+        height: 130px
+      }
+
+      .impact-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 8px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#"><span class="logo-mark">↻</span>LifeLoop</a>
+        <div class="navlinks">
+          <a href="#how">How it works</a><a href="#discover">Discover</a><a href="#impact">Impact</a>
+        </div>
+        <button class="navbtn" onclick="openScanner()">Try the scanner</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div>
+        <div class="eyebrow"><span></span> Personal sustainability, made practical</div>
+        <h1>Give everything you own a <em>longer life.</em></h1>
+        <p>Scan an item and LifeLoop helps you decide whether to keep it, repair it, reuse it, resell it, donate it, or
+          recycle it — before you replace it.</p>
+        <div class="ctas"><button class="primary" onclick="openScanner()">Scan something I own →</button><a
+            class="secondary" href="#how">See how it works</a></div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-img"></div>
+        <div class="scan-card">
+          <div class="scan-top"><span class="scan-title">LifeLoop scan</span><span class="badge">82% life
+              potential</span></div>
+          <div class="scan-item">
+            <div class="mini-img"></div>
+            <div><strong>Everyday sneakers</strong><small>Still usable • 2 years old</small></div>
+          </div>
+          <div class="progress"><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container stats">
+      <div class="stat"><strong>27</strong><span>items in your personal loop</span></div>
+      <div class="stat"><strong>8</strong><span>items given a second life</span></div>
+      <div class="stat"><strong>₹4,800</strong><span>estimated value saved so far</span></div>
+    </section>
+
+    <section class="section container" id="how">
+      <div class="section-head">
+        <div class="kicker">Simple by design</div>
+        <h2>One scan. Better next steps.</h2>
+        <p>No guilt. No complicated sustainability scorecards. Just a clear recommendation for the thing in front of
+          you.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">01</div>
+          <div class="step-icon">📸</div>
+          <h3>Scan</h3>
+          <p>Take a photo of something you own, or describe it in a few words.</p>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <div class="step-icon">🤖</div>
+          <h3>Understand</h3>
+          <p>LifeLoop identifies the item and estimates its current condition and life potential.</p>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <div class="step-icon">♻️</div>
+          <h3>Choose</h3>
+          <p>Get practical options: keep, repair, reuse, resell, donate or recycle.</p>
+        </div>
+        <div class="step">
+          <div class="num">04</div>
+          <div class="step-icon">🌱</div>
+          <h3>Loop it</h3>
+          <p>Track the action and see the money and estimated impact you created.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="feature">
+        <div class="feature-img"></div>
+        <div>
+          <div class="kicker">Your next best life</div>
+          <h2>Don't replace it until you know its options.</h2>
+          <p>LifeLoop turns “What should I do with this?” into a simple decision.</p>
+          <div class="option-list">
+            <div class="option"> Repair <b>Recommended</b></div>
+            <div class="option"> Keep using <b>Great option</b></div>
+            <div class="option">Donate <b>Give it forward</b></div>
+            <div class="option"> Resell <b>Recover value</b></div>
+            <div class="option"> Recycle <b>Last resort</b></div>
+          </div>
+          <button class="primary" onclick="openScanner()">Try a sample scan</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="discover">
+      <div class="section-head">
+        <div class="kicker">Everything has a next step</div>
+        <h2>From your wardrobe to your workspace.</h2>
+        <p>LifeLoop is designed for the objects you already use every day.</p>
+      </div>
+      <div class="categories">
+        <div class="cat"><strong>Clothing</strong><span>Wear • Repair • Donate</span></div>
+        <div class="cat"><strong>Electronics</strong><span>Maintain • Repair • Reuse</span></div>
+        <div class="cat"><strong>Tech</strong><span>Keep • Resell • Recycle</span></div>
+        <div class="cat"><strong>Furniture</strong><span>Repair • Rehome</span></div>
+        <div class="cat"><strong>Home</strong><span>Maintain • Reuse</span></div>
+      </div>
+    </section>
+
+    <section class="section container" id="impact">
+      <div class="impact">
+        <div>
+          <div class="kicker" style="color:#8ed2aa">Your loop, your impact</div>
+          <h2>Make sustainability visible.</h2>
+          <p>Every repair, reuse, resale or donation becomes part of your personal loop. Environmental figures are
+            estimates based on the product and action selected.</p>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-box"><strong>12</strong><span>items kept in use</span></div>
+          <div class="impact-box"><strong>6.8 kg</strong><span>estimated material kept in circulation</span></div>
+          <div class="impact-box"><strong>₹4.8k</strong><span>estimated value saved</span></div>
+          <div class="impact-box"><strong>14</strong><span>better decisions logged</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta container">
+      <div class="kicker">Start your loop</div>
+      <h2>What’s the next life of something you already own?</h2>
+      <p>Scan one item. Get one better option. Start small, then keep the loop going.</p>
+      <button class="primary" onclick="openScanner()">Scan my first item →</button>
+    </section>
+  </main>
+
+  <footer class="container"><span>© 2026 LifeLoop</span><span>Buy less. Use longer. Waste smarter.</span></footer>
+
+  <div class="modal" id="scanner">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div>
+          <div class="kicker">LifeLoop scanner</div>
+          <h2>Give an item its next life</h2>
+        </div><button class="close" onclick="closeScanner()">×</button>
+      </div>
+      <div class="drop" onclick="simulateScan()"><span>📷</span><strong>Tap to scan an item</strong>
+        <p>For this prototype, try our sample AI scan.</p>
+      </div>
+      <div class="result" id="result"><strong>👟 Everyday sneakers</strong><span>Life potential: <b>82/100</b></span>
+        <div><span class="pill"> Keep using</span><span class="pill">🔧 Repair</span><span class="pill">🤝
+            Donate</span><span class="pill"> Recycle later</span></div>
+        <p style="margin-top:10px;color:#557064;font-size:13px">Recommendation: clean and repair the worn sole before
+          replacing them.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openScanner() { document.getElementById('scanner').classList.add('open') }
+    function closeScanner() { document.getElementById('scanner').classList.remove('open') }
+    function simulateScan() { document.getElementById('result').classList.add('show') }
+    document.getElementById('scanner').addEventListener('click', e => { if (e.target.id === 'scanner') closeScanner() });
+  </script>
+</body>
+
+</html>
